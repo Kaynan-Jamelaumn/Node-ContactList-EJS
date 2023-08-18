@@ -1,20 +1,19 @@
 <%- include('includes/head'); %>
   <%- include('includes/nav'); %>
+    <div class="container">
+      <h1 class="text-center my-5">Agenda</h1>
+      <p class="text-center lead">Contatos:</p>
 
-
-
-    <body>
-      <% if (typeof coisa !=="undefined" ) { %>
-        <%= coisa %>
-          <% } %>
-
-            <script src="./assets/js/bundle.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-              integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-              crossorigin="anonymous"></script>
-    </body>
-
-    </html>
-    </body>
-
-    </html>
+      <%- include('includes/messages')%>
+        <div class="responsive-table">
+          <table class="table">
+            <tr>
+              <td>Teste</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+    </div>
+    <%- include('includes/script'); %>

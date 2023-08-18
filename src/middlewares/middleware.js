@@ -1,14 +1,16 @@
 exports.middleWareGlobal = (req, res, next) => {
-  console.log(" sou o middleware passei");
+  res.locals.errors = req.flash('errors');
+  res.locals.success = req.flash('success');
+  res.locals.user = req.session.user;
   next();
 }
 
 exports.checkCSRFError = (err, req, res, next) => {
-  if (err && err.code === 'EBADCSRFTOKEN') {
-    return res.send('BAD CSRF');
+  if (err) {
+    return res.render('404');
   }
 }
 exports.CSRFMiddleware = (req, res, next) => {
-  res.locals.csrftoken = req.csrfToken(); // Use req.csrfToken() here
+  res.locals.csrfToken = req.csrfToken(); // Use req.csrfToken() here
   next();
 }
