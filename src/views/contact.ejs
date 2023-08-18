@@ -1,0 +1,25 @@
+<%- include('includes/head'); %>
+  <%- include('includes/nav'); %>
+    <div class="container">
+      <h1 class="text-center my-5">Agenda</h1>
+      <p class="text-center lead">Contatos:</p>
+
+      <%- include('includes/messages')%>
+        <form method="POST" action="/contact/register">
+          <input type="hidden" name="_csrf" value=<%=csrfToken%>>
+          <div class="mt-5">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          <div class="mt-5">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mt-5">
+            <label for="number" class="form-label">Number</label>
+            <input type="text" class="form-control" id="number" name="number">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <%- include('includes/script'); %>

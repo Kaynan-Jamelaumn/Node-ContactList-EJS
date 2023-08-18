@@ -39,9 +39,9 @@ class User {
   validator() {
     this.cleanData();
     if (!validator.isEmail(this.body.email)) this.errors.push('Invalid E-mail')
-    if (this.body.password <= 3) this.errors.push('Must Contain more than 4 characteres')
+    if (this.body.password <= 3) this.errors.push('Password must Contain more than 4 characteres')
     if (this.body.password !== this.body.passwordConfirmation) this.errors.push("Passwords Doesnt Match")
-    if (this.body.name <= 1) this.errors.push('Must Contain more than 1 characteress')
+    if (this.body.name <= 1) this.errors.push('Name must Contain more than 1 characteress')
   }
   async register() {
     this.validator();

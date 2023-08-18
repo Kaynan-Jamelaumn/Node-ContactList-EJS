@@ -20,7 +20,6 @@ const csrf = require('csurf');
 const path = require('path');
 const routes = require('./routes');
 const { middleWareGlobal, checkCSRFError, CSRFMiddleware } = require('./src/middlewares/middleware');
-
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));// permitir envio de formulário
 app.use(express.json());

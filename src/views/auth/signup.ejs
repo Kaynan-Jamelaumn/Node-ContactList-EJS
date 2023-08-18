@@ -4,7 +4,7 @@
 
       <%- include('../includes/messages')%>
 
-        <form method="POST">
+        <form method="POST" action="/auth/signup">
           <input type="hidden" name="_csrf" value=<%=csrfToken%>>
           <div class="mt-5">
             <label for="name" class="form-label">Name</label>

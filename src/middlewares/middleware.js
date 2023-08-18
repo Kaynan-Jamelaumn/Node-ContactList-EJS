@@ -14,3 +14,12 @@ exports.CSRFMiddleware = (req, res, next) => {
   res.locals.csrfToken = req.csrfToken(); // Use req.csrfToken() here
   next();
 }
+
+exports.loginRequired = (req, res, next) => {
+  if (!req.session.user) {
+    req.flash('errors', 'You need to be logged in.');
+    req.session.save(() => res.redirect(''));
+    return;
+  }
+  next();
+}
