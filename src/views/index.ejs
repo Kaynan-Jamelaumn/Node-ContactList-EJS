@@ -1,19 +1,19 @@
 <%- include('includes/head'); %>
   <%- include('includes/nav'); %>
     <div class="container">
-      <h1 class="text-center my-5">Agenda</h1>
-      <p class="text-center lead">Contatos:</p>
-
+      <h1 class="text-center my-5">Schedule</h1>
+      <p class="text-center lead">Contacts:</p>
       <%- include('includes/messages')%>
-        <div class="responsive-table">
-          <table class="table">
-            <tr>
-              <td>Teste</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
+        <div>
+          <% if (!user) {%>
+            <h2 class="text-center">To see your Contacts Please Login</h2>
+            <div class="row">
+
+              <button type="button" class="btn btn-success btn-lg btn-block">
+                <a class="nav-link" href="/auth/login">Login</a>
+            </div>
+            </button>
+            <%} %>
         </div>
     </div>
     <%- include('includes/script'); %>

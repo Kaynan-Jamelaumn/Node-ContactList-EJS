@@ -14,19 +14,38 @@ class Contact {
     this.errors = [];
     this.contact = null;
   }
+  async update(id) {
+    this.validator();
+    if (this.errors.length > 0) return;
+
+    const contact = await ContactModel.findById(id);
+    if (!contact) {
+      this.errors.push('Contact not found');
+      return;
+    }
+
+    contact.name = this.body.name;
+    contact.email = this.body.email;
+    contact.number = this.body.number;
+
+    await contact.save();
+    console.log("josx", contact);
+    this.contact = contact;
+  }
+
+
   validator() {
     this.cleanData();
-    if (!validator.isEmail(this.body.email)) this.errors.push('Invalid E-mail')
-    if (this.body.number <= 3) this.errors.push('Number must Contain more than 4 characteres')
-    if (this.body.name <= 1) this.errors.push('Name must Contain more than 1 characteress')
     if (!this.body.number && !this.body.email) this.errors.push('Must Contain at least e-mail or contact number')
+    if ((!this.body.email && !this.body.number) && !validator.isEmail(this.body.email)) this.errors.push('Invalid E-mail')
+    if (this.body.name <= 1) this.errors.push('Name must Contain more than 1 characteress')
   }
   static async findById(id) {
     if (typeof id !== 'string') return;
 
 
-    const user = await ContactModel.findById(id);
-    return user;
+    const contact = await ContactModel.findById(id);
+    return contact;
   }
 
 
@@ -43,6 +62,7 @@ class Contact {
     );
   }
   cleanData() {
+    console.log(this.body.number)
     for (const key in this.body) {
       if (typeof this.body[key] !== 'string') {
         this.body[key] = '';
@@ -51,7 +71,7 @@ class Contact {
     this.body = {
       name: this.body.name,
       email: this.body.email,
-      number: this.body.password,
+      number: this.body.number,
     }
   }
 }

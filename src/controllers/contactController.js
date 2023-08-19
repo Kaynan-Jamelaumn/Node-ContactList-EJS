@@ -1,3 +1,4 @@
+
 const Contact = require('../models/ContactModel');
 
 exports.index = (req, res) => {
@@ -5,7 +6,7 @@ exports.index = (req, res) => {
 }
 exports.register = async (req, res) => {
   if (req.method === 'GET') {
-    res.render('contact/register', { contact: {} });
+    res.render('contact/register');
   }
   else if (req.method === 'POST') {
     const contact = new Contact(req.body);
@@ -21,7 +22,7 @@ exports.register = async (req, res) => {
       }
       req.flash('success', 'Contact made');
       req.session.save(() => {
-        return res.redirect(`/contact/update/${contact.contact._id}`);
+        return res.redirect(`/`);
       });
     } catch (e) {
       console.log(e);
@@ -30,41 +31,25 @@ exports.register = async (req, res) => {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.update = async (req, res) => {
   if (req.method === 'GET') {
     if (!req.params.id) return res.render('404');
     const contact = await Contact.findById(req.params.id);
     if (!contact) return res.render('404');
-
-    res.render('contact/register', { contact: contact });
+    res.render('contact/update', { contact: contact });
   }
   else if (req.method === 'POST') {
-    console.log("sdsdsds");
     const contact = new Contact(req.body);
     try {
-      await contact.register();
-
+      await contact.update(req.params.id);
       if (contact.errors.length > 0) {
         req.flash('errors', contact.errors);
         req.session.save(() => {
-          return res.redirect(`/contact/update/${contact.contact._id}`);
+          return res.redirect(`/contact/update/${req.params.id}`);
         });
         return;
       }
-      req.flash('success', 'Contact made');
+      req.flash('success', 'Contact updated');
       req.session.save(() => {
         return res.redirect('/');
       });
