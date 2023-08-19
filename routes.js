@@ -14,6 +14,8 @@ route.post('/contact/register', loginRequired, contactController.register)
 route.get('/contact/update/:id', loginRequired, contactController.update);
 route.post('/contact/update/:id', loginRequired, contactController.update);
 
+route.get('/contact/delete/:id', loginRequired, contactController.delete);
+
 route.get('/auth/login', authController.login)
 route.post('/auth/login', authController.login)
 

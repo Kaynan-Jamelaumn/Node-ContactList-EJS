@@ -1,8 +1,7 @@
 <%- include('includes/head'); %>
   <%- include('includes/nav'); %>
     <div class="container">
-      <h1 class="text-center my-5">Schedule</h1>
-      <p class="text-center lead">Contacts:</p>
+      <h1 class="text-center my-5">Contact List</h1>
       <%- include('includes/messages')%>
         <div>
           <% if (!user) {%>
@@ -13,7 +12,33 @@
                 <a class="nav-link" href="/auth/login">Login</a>
             </div>
             </button>
-            <%} %>
+            <%} else{ %>
+              <a href="/contact/register/" class="text-center nav-link text-success fs-3 mb-5"> Register New Contact</a>
+              <h3 class="text-center lead fs-4">Contacts:</h3>
+              <div class="responsive-table">
+                <table class="table">
+                  <% contacts.forEach(contact=> {%>
+                    <tr>
+                      <td>
+                        <%= contact.name%>
+                      </td>
+                      <td>
+                        <%= contact.email%>
+                      </td>
+                      <td>
+                        <%= contact.number%>
+                      </td>
+                      <td>
+                        <a href="/contact/update/<%= contact._id%>" class="text-success">Update</a>
+                      </td>
+                      <td>
+                        <a href="/contact/delete/<%= contact._id%>" class="text-danger">Delete</a>
+                      </td>
+                    </tr>
+                    <% });%>
+                </table>
+              </div>
+              <% }%>
         </div>
     </div>
     <%- include('includes/script'); %>

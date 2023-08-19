@@ -1,9 +1,5 @@
 
 const Contact = require('../models/ContactModel');
-
-exports.index = (req, res) => {
-  res.render('contact');
-}
 exports.register = async (req, res) => {
   if (req.method === 'GET') {
     res.render('contact/register');
@@ -11,7 +7,7 @@ exports.register = async (req, res) => {
   else if (req.method === 'POST') {
     const contact = new Contact(req.body);
     try {
-      await contact.register();
+      await contact.register(req.session.user._id);
 
       if (contact.errors.length > 0) {
         req.flash('errors', contact.errors);
@@ -58,4 +54,26 @@ exports.update = async (req, res) => {
       res.render('404');
     }
   }
+}
+
+
+
+exports.delete = async (req, res) => {
+  if (req.method === 'GET') {
+    if (!req.params.id) return res.render('404');
+    try {
+      await Contact.delete(req.params.id, req.session.user._id);
+      req.flash('success', 'Contact deleted');
+      req.session.save(() => {
+        return res.redirect('/')
+      });
+    }
+    catch {
+      req.flash('errors', 'Failed to find or delete the contact');
+      req.session.save(() => {
+        return res.redirect('/')
+      });
+    }
+  }
+
 }
